@@ -1,0 +1,51 @@
+#!/bin/sh
+
+filtro=1
+bin=2
+m=0
+
+while [ $m -eq 0 ] ; do
+	setfilter  $filtro
+	sleep 2s
+	n=0
+	while [ $n -eq 0 ] ; do
+		a=`Leerluz $filtro $bin`
+		
+		if [ ${a%%.*} -eq 0 ] ; then	#Leerluz devuelve a = 0 si estoy fuera del rango de luz para tomar flats (mucha luz) esta cosa con "a" chequea la parte entera	
+			echo 'Hay mucha luz, esperar...'
+			sleep 5s
+	
+	
+		elif [ ${a%%.*} -eq -1 ] ; then	#Devuelve a=-1 si estoy fuera del rango para tomar flats (poca luz)
+				echo 'Hay poca luz, tarde para flats'
+				n=1
+				m=1		
+		
+		elif [ ${a%%.*} -ge 1 ] ; then  #Si lo que devuelve leerluz es un numero 
+			tomaexpo sky$filtro 1 $a 1 $bin $bin 0
+			n=1
+		else				#En caso contrario (si leerluz no devuelve un numero es que ando anda mal, basicamente que no puede leer el archivo CloudWatcher.csv)
+			echo 'Leerluz.py no esta funcionando, revisar el software de la estación '
+			sleep 50s
+			n=1
+			m=1
+		fi
+	done
+
+	#Cambia de filtro
+	if [ $filtro -eq 5 ] ; then
+		filtro=1
+	elif [ $filtro -eq 1 ] ; then
+		filtro=2
+	elif [ $filtro -eq 2 ] ; then
+		filtro=3
+	elif [ $filtro -eq 3 ] ; then
+		filtro=5
+	
+	fi
+done
+
+tomaexpo bias 20 0 0.0025 2 2 0
+
+#python /home/telescopio/DATOS/AnalisisPython/MasterFlat.py
+
