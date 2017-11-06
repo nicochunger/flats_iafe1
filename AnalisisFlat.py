@@ -11,9 +11,9 @@ from astropy.io import fits
 import subprocess
 
 
-path_archivos=raw_input('Introducir directorio de los flats: ')
-archivos=raw_input('Introducir nombre de los flats: ')
-Luz='/home/telescopio/DATOS/DatosClima/CloudWatcher/'
+path_archivos = raw_input('Introducir directorio de los flats: ')
+archivos = raw_input('Introducir nombre de los flats: ')
+Luz = '/home/telescopio/FLATS/DatosClima/CloudWatcher/'
 imagenes = subprocess.check_output('ls '+path_archivos+archivos,shell=True).split('\n')
 
 
@@ -49,7 +49,7 @@ def luz(Hora,Dia):
             # Extre el horario de cada linea
             if hora >= float(Hora): # Compara con la hora que queremos ver
                 '''Si llega a un horario que sea posterior al que queremos ver
-                   extre el valor de luz y corta el loop. '''
+                   extre el valor de luz lo devuelve y corta el loop. '''
                 return line.split(',')[8].replace('"','')
                 break
     except:
