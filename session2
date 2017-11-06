@@ -1,0 +1,44 @@
+#!/bin/sh
+
+openSession
+sleep 50s
+telescopeSleep
+sleep 10s
+telescopeSlew 09:30:00  -31:47:15 #acuerdense de cambiar la RA, Dec esta ok
+     sleep 15s
+horaActual1=$(date +%H%M)
+horalim1=2030 # actalicen la hora a la que anochece
+while [ $horaActual1 -le $horalim1 ]
+do
+      setFilter  i
+     sleep 10s
+    tomaexpo skyi 1 2 1 1 1 0
+    tomaexpo skyi 1 4 1 1 1 0
+    tomaexpo skyi 1 6 1 1 1 0
+    setfilter  r
+     sleep 10s
+    tomaexpo skyr 1 2 1 1 1 0
+    tomaexpo skyr 1 4 1 1 1 0
+    tomaexpo skyr 1 6 1 1 1 0
+    setFilter b
+    sleep 5s
+    tomaexpo skyb 1 2 1 1 1 0
+    tomaexpo skyb 1 4 1 1 1 0
+    tomaexpo skyb 1 6 1 1 1 0
+   tomaexpo skyb 1 8 1 1 1 0
+    setFilter v
+     sleep 10s
+    tomaexpo skyv 1 2 1 1 1 0
+    tomaexpo skyv 1 4 1 1 1 0
+    tomaexpo skyv 1 6 1 1 1 0
+     setFilter  c 
+     sleep 10s
+    tomaexpo skyc 1 2 1 1 1 0
+    tomaexpo skyc 1 4 1 1 1 0
+    tomaexpo skyc 1 6 1 1 1 0
+  
+    horaActual1=$(date +%H%M)
+
+done
+
+telescopeWake
