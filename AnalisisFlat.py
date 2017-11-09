@@ -10,9 +10,10 @@ import numpy as np
 from astropy.io import fits
 import subprocess
 
-
-path_archivos = raw_input('Introducir directorio de los flats: ')
-archivos = raw_input('Introducir nombre de los flats: ')
+#path_archivos = raw_input('Introducir directorio de los flats: ')
+#archivos = raw_input('Introducir nombre de los flats: ')
+path_archivos = '/home/telescopio/FLATS/2017-1103/'
+archivos = 'flat'
 Luz = '/home/telescopio/FLATS/DatosClima/CloudWatcher/'
 imagenes = subprocess.check_output('ls '+path_archivos+archivos,shell=True).split('\n')
 
@@ -39,7 +40,7 @@ def luz(Hora,Dia):
     try:
         a = Dia[6:8] + Dia[4:6] + '-' + Dia[0:4]
         # Convierte la fecha en un formato que se pueda leer
-        f = open(Luz+a,'r')
+        f = open(Luz + a,'r')
         # Abre el archivo de la estacion meteorologica de la fecha correspondiende
         lineas = f.readlines() # Lee el archivo
         f.close() # Cierra el archivo
