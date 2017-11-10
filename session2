@@ -1,36 +1,36 @@
 #!/bin/sh
 
 teleSleep #Duerme al telescopio para que no trackee
-horaActual1 = $(date +%H%M) # Define hora actual
-horalim1 = 2030 # Hora a la que anochece
+horaActual1=$(date +%H%M) #Define hora actual
+horalim1=2030 #Hora a la que anochece
 while [ $horaActual1 -le $horalim1 ]
 do
-    setFilter  i
+    setFilter i
     sleep 10s
-    tomaexpo skyi 1 2 1 1 1 0
-    tomaexpo skyi 1 4 1 1 1 0
-    tomaexpo skyi 1 6 1 1 1 0
-    setfilter  r
+    tomaexpo skyi 1 2 1 2 2 0
+    tomaexpo skyi 1 4 1 2 2 0
+    tomaexpo skyi 1 6 1 2 2 0
+    setfilter r
     sleep 10s
-    tomaexpo skyr 1 2 1 1 1 0
-    tomaexpo skyr 1 4 1 1 1 0
-    tomaexpo skyr 1 6 1 1 1 0
+    tomaexpo skyr 1 2 1 2 2 0
+    tomaexpo skyr 1 4 1 2 2 0
+    tomaexpo skyr 1 6 1 2 2 0
     setFilter b
     sleep 10s
-    tomaexpo skyb 1 2 1 1 1 0
-    tomaexpo skyb 1 4 1 1 1 0
-    tomaexpo skyb 1 6 1 1 1 0
-    tomaexpo skyb 1 8 1 1 1 0
+    tomaexpo skyb 1 2 1 2 2 0
+    tomaexpo skyb 1 4 1 2 2 0
+    tomaexpo skyb 1 6 1 2 2 0
+    tomaexpo skyb 1 8 1 2 2 0
     setFilter v
     sleep 10s
-    tomaexpo skyv 1 2 1 1 1 0
-    tomaexpo skyv 1 4 1 1 1 0
-    tomaexpo skyv 1 6 1 1 1 0
+    tomaexpo skyv 1 2 1 2 2 0
+    tomaexpo skyv 1 4 1 2 2 0
+    tomaexpo skyv 1 6 1 2 2 0
     setFilter clear
     sleep 10s
-    tomaexpo skyc 1 2 1 1 1 0
-    tomaexpo skyc 1 4 1 1 1 0
-    tomaexpo skyc 1 6 1 1 1 0
+    tomaexpo skyc 1 2 1 2 2 0
+    tomaexpo skyc 1 4 1 2 2 0
+    tomaexpo skyc 1 6 1 2 2 0
 
     horaActual1=$(date +%H%M)
 
