@@ -13,24 +13,24 @@ done
 
 while [ $horaActual1 -le $horalim1 ]
 do
-    setfilter v
+    setFilter clear
     sleep 10s
-    tomaexpo skyv 1 1 1 2 2 0
-    tomaexpo skyv 1 2 1 2 2 0
-    tomaexpo skyv 1 4 1 2 2 0
-    tomaexpo skyv 1 6 1 2 2 0
-    setFilter r
+    tomaexpo skyc 1 1 1 2 2 0
+    tomaexpo skyc 1 2 1 2 2 0
+    tomaexpo skyc 1 4 1 2 2 0
+    tomaexpo skyc 1 6 1 2 2 0
+    setFilter u
     sleep 10s
-    tomaexpo skyr 1 1 1 2 2 0
-    tomaexpo skyr 1 2 1 2 2 0
-    tomaexpo skyr 1 4 1 2 2 0
-    tomaexpo skyr 1 6 1 2 2 0
-    setFilter i
+    tomaexpo skyu 1 1 1 2 2 0
+    tomaexpo skyu 1 2 1 2 2 0
+    tomaexpo skyu 1 4 1 2 2 0
+    tomaexpo skyu 1 6 1 2 2 0
+    setFilter b
     sleep 10s
-    tomaexpo skyi 1 1 1 2 2 0
-    tomaexpo skyi 1 2 1 2 2 0
-    tomaexpo skyi 1 4 1 2 2 0
-    tomaexpo skyi 1 6 1 2 2 0
+    tomaexpo skyb 1 1 1 2 2 0
+    tomaexpo skyb 1 2 1 2 2 0
+    tomaexpo skyb 1 4 1 2 2 0
+    tomaexpo skyb 1 6 1 2 2 0
 
     horaActual1=$(date +%H%M)
 

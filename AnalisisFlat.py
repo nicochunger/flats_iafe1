@@ -12,11 +12,10 @@ import subprocess
 
 #path_archivos = raw_input('Introducir directorio de los flats: ')
 #archivos = raw_input('Introducir nombre de los flats: ')
-path_archivos = '/home/telescopio/FLATS/2017-1103/'
-archivos = 'flat'
+path_archivos = '/home/telescopio/FLATS/2017-1110/' #Poner el dia que se quiere sacar datos
+archivos = 'sky'
 Luz = '/home/telescopio/FLATS/DatosClima/CloudWatcher/'
-imagenes = subprocess.check_output('ls '+path_archivos+archivos,shell=True).split('\n')
-
+filtros = ['c','u','b'] # Letras que identifican a cada filtro
 
 def anotar(archivo,texto,f):
     ''' Escribe texto sobre un archivo.
@@ -29,7 +28,7 @@ def anotar(archivo,texto,f):
     c.close() # Cierra el archivo
 
 
-########################     Valor de Luz  ######################
+########################  Valor de Luz  ######################
 
 
 def luz(Hora,Dia):
@@ -45,7 +44,7 @@ def luz(Hora,Dia):
         lineas = f.readlines() # Lee el archivo
         f.close() # Cierra el archivo
 
-        for line in lineas[1:]:
+        for line in lineas:
             hora = float(line.split(',')[1].replace('"','').replace(':',''))
             # Extre el horario de cada linea
             if hora >= float(Hora): # Compara con la hora que queremos ver
@@ -56,26 +55,28 @@ def luz(Hora,Dia):
     except:
         return '?' # Si no puede leer el archivo con los datos de luz
 
-##################################################################
+#######################  Escribe los resultados   #################
 
+for filtro in filtros:
+    # Escribe el header del archivo con los resultados
+    anotar(path_archivos+'resultados_'+archivos+filtro,'Archivo,Dia,Hora,Tiempo de exp,Valor medio,Desviacion estandar, Valor luz','w')
 
-anotar(path_archivos+'resultados_'+archivos,'Archivo,Dia,Hora,Tiempo de exp,Valor medio,Desviacion estandar, Valor luz','w')
-
-for line in imagenes:
-    if 'fits' in line: # Checkea que el archivo sea una imagen .fits
-        line = line.replace(path_archivos,'') # Nombre del archivo
-        c = fits.open(path_archivos+line) # Abre la imagen
-        datos = c[0].data # Extrae los valores de cuentas de cada pixel
-        c.close() # Cierra la imagen
-        linea = line.split('_') # Separa el nombre del archivo en cada cosa
-        seg = linea[3].strip('s') # Tiempo de exposicion
-        std = str(np.std(datos)) # Desviacion estandar de las cuentas de todos los pixeles
-        mean = str(np.mean(datos)) # Valor medio de las cuentas
-        hora = linea[4][-6:] # Horario de la imagen
-        dia = linea[4][:8] # Dia de la imagen
-        datoluz = luz(hora,dia) # Valor de luz en ese momento
-        # Guarda los resultados
-        anotar(path_archivos+'resultados_'+archivos,line+','+dia+','+hora+','+seg+','+mean+','+std+','+datoluz,'a')
+    imagenes = subprocess.check_output('ls '+path_archivos+archivos+filtro+'*',shell=True).split('\n')
+    for line in imagenes:
+        if 'fits' in line: # Checkea que el archivo sea una imagen .fits
+            line = line.replace(path_archivos,'') # Nombre del archivo
+            c = fits.open(path_archivos+line) # Abre la imagen
+            datos = c[0].data # Extrae los valores de cuentas de cada pixel
+            c.close() # Cierra la imagen
+            linea = line.split('_') # Separa el nombre del archivo en cada cosa
+            seg = linea[3].strip('s') # Tiempo de exposicion
+            std = str(np.std(datos)) # Desviacion estandar de las cuentas de todos los pixeles
+            mean = str(np.mean(datos)) # Valor medio de las cuentas
+            hora = linea[4][-6:] # Horario de la imagen
+            dia = linea[4][:8] # Dia de la imagen
+            datoluz = luz(hora,dia) # Valor de luz en ese momento
+            # Guarda los resultados
+            anotar(path_archivos+'resultados_'+archivos+filtro,line+','+dia+','+hora+','+seg+','+mean+','+std+','+datoluz,'a')
 
 
 #################################################################
