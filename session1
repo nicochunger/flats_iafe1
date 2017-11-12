@@ -1,10 +1,9 @@
 #!/bin/sh
 
-teleSleep #Duerme al telescopio para que no trackee
 horaActual1=$(date +%H%M) #Define hora actual
 horacomienzo=2010 #Hora a la que empieza a tomar fotos
-horalim1=2050 #Hora a la que anochece
-while [ $horaActual1 -le $horacomienzo]
+horalim1=2045 #Hora a la que anochece
+while [ $horaActual1 -le $horacomienzo ]
 do
     echo "Muy temprano todavia: espero 30s"
     echo "Son las: $horaActual1 | Arranca a las: $horacomienzo"
