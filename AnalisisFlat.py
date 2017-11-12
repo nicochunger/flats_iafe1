@@ -12,10 +12,10 @@ import subprocess
 
 #path_archivos = raw_input('Introducir directorio de los flats: ')
 #archivos = raw_input('Introducir nombre de los flats: ')
-path_archivos = '/home/telescopio/FLATS/2017-1110/' #Poner el dia que se quiere sacar datos
+path_archivos = '/home/telescopio/FLATS/2017-1111/' #Poner el dia que se quiere sacar datos
 archivos = 'sky'
 Luz = '/home/telescopio/FLATS/DatosClima/CloudWatcher/'
-filtros = ['c','u','b'] # Letras que identifican a cada filtro
+filtros = ['v','r','i'] # Letras que identifican a cada filtro
 
 def anotar(archivo,texto,f):
     ''' Escribe texto sobre un archivo.
