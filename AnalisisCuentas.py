@@ -29,10 +29,25 @@ for filtro in filtros:
 print " "
 
 # Funcion para realizar los ajustes a los datos
-def func(x,a,b,c):
-    return a*10e5/(x-c) + b
+#def func(x,a,b,c):
+#    return a*10e5/(x-c) + b
+# Misma funcino sin el 'c'.. para probar nomas
+def func(x,a,b):
+    return a*10e5/(x) + b
 
 ajustes = {} # Diccionario con los ajustes de cada filtro
+
+# Hago el ajuste y grafico al mismo tiempo
+plt.figure(figsize=(11.6,8.3))
+plt.hold
+xfit=np.linspace(0,15000,6000)
+#colores = [(1.0,1.0,1.0), (0.5,0.5,0.5), (0,0,1), (0.5,0.5,0.5), (1,0,0), (0.5,0,0)]
+
+def get_color():
+    for item in [(0,0,0), (0.5,0,0.5), (0,0,1), (0.5,0.5,0.5), (1,0,0), (0.5,0,0)]:
+        yield item
+
+colores = get_color()
 
 for filtro in filtros:
     t_exp = datos[filtro][:,0] # Tiempo de exposicion
@@ -41,20 +56,11 @@ for filtro in filtros:
     luz = datos[filtro][:,3] # Valor de luz
     popt, pcov = curve_fit(func, luz, mean/t_exp, absolute_sigma=True,sigma=std/t_exp)
     ajustes[filtro] = [popt, pcov]
+    acolor = next(colores)
+    plt.errorbar(luz, mean/t_exp, std/t_exp,fmt='.',color=acolor, label="Filtro "+filtro)
+    plt.plot(xfit, func(xfit, *ajustes[filtro][0]), color=acolor)
 
-# Plotear los datos y ajustes
-plt.figure(figsize=(11.6,8.3))
-plt.hold
-xfit=np.linspace(0,15000,6000)
-for filtro in filtros:
-    t_exp = datos[filtro][:,0] # Tiempo de exposicion
-    mean = datos[filtro][:,1] # Valor medio de cuentas
-    std = datos[filtro][:,2] # Desviacion estandar
-    luz = datos[filtro][:,3] # Valor de luz
-    plt.errorbar(luz, mean/t_exp, std/t_exp,fmt='.', label="Filtro "+filtro)
-    plt.plot(xfit, func(xfit, *ajustes[filtro][0]))
-
-plt.ylim((0,50000))
+plt.ylim((0,60000))
 plt.xlim((0,15000))
 plt.title(r'$f(x)=\frac{a10^{5}}{x-c} +b$',fontsize=18)
 plt.xlabel(r'Valor de luz dado por el AAG')
