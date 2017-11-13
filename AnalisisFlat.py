@@ -16,6 +16,8 @@ path_archivos = '/home/telescopio/FLATS/2017-1111/' #Poner el dia que se quiere 
 archivos = 'sky'
 Luz = '/home/telescopio/FLATS/DatosClima/CloudWatcher/'
 filtros = ['v','r','i'] # Letras que identifican a cada filtro
+con_mascara = True # Indicar si se desea usar una mascara circular o no
+# La mascara es para sacar los efectos del vineteo
 
 def anotar(archivo,texto,f):
     ''' Escribe texto sobre un archivo.
@@ -55,11 +57,27 @@ def luz(Hora,Dia):
     except:
         return '?' # Si no puede leer el archivo con los datos de luz
 
+###################### Mascara circular ###########################
+
+def createCircularMask(h, w, center=None, radius=None):
+
+    if center is None: # use the middle of the image
+        center = [int(w/2), int(h/2)]
+    if radius is None: # use the smallest distance between the center and image walls
+        radius = min(center[0], center[1], w-center[0], h-center[1])
+
+    Y, X = np.ogrid[:h, :w]
+    dist_from_center = np.sqrt((X - center[0])**2 + (Y-center[1])**2)
+
+    mask = dist_from_center <= radius
+    return mask
+
+
 #######################  Escribe los resultados   #################
 
 for filtro in filtros:
     # Escribe el header del archivo con los resultados
-    anotar(path_archivos+'resultados_'+archivos+filtro,'Archivo,Dia,Hora,Tiempo de exp,Valor medio,Desviacion estandar, Valor luz','w')
+    anotar(path_archivos+'resultados2_'+archivos+filtro,'Archivo,Dia,Hora,Tiempo de exp,Valor medio,Desviacion estandar, Valor luz','w')
 
     imagenes = subprocess.check_output('ls '+path_archivos+archivos+filtro+'*',shell=True).split('\n')
     for line in imagenes:
@@ -67,7 +85,11 @@ for filtro in filtros:
             line = line.replace(path_archivos,'') # Nombre del archivo
             c = fits.open(path_archivos+line) # Abre la imagen
             datos = c[0].data # Extrae los valores de cuentas de cada pixel
+            h, w = c.shape[:2] # Tamano de la imagen
+            mask = createCircularMask(h, w, radius=int((w/2)*0.7)) # Mascara que se le aplica a la imagen
             c.close() # Cierra la imagen
+            if con_mascara:
+                datos = np.ma.masked_array(datos, ~mask)
             linea = line.split('_') # Separa el nombre del archivo en cada cosa
             seg = linea[3].strip('s') # Tiempo de exposicion
             std = str(np.std(datos)) # Desviacion estandar de las cuentas de todos los pixeles
@@ -76,7 +98,7 @@ for filtro in filtros:
             dia = linea[4][:8] # Dia de la imagen
             datoluz = luz(hora,dia) # Valor de luz en ese momento
             # Guarda los resultados
-            anotar(path_archivos+'resultados_'+archivos+filtro,line+','+dia+','+hora+','+seg+','+mean+','+std+','+datoluz,'a')
+            anotar(path_archivos+'resultados2_'+archivos+filtro,line+','+dia+','+hora+','+seg+','+mean+','+std+','+datoluz,'a')
 
 
 #################################################################
