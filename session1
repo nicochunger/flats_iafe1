@@ -15,16 +15,16 @@ while [ $horaActual1 -le $horalim1 ]
 do
     setFilter clear
     sleep 10s
+    tomaexpo skyc 1 0.2 1 2 2 0
+    tomaexpo skyc 1 0.5 1 2 2 0
     tomaexpo skyc 1 1 1 2 2 0
     tomaexpo skyc 1 2 1 2 2 0
-    tomaexpo skyc 1 4 1 2 2 0
-    tomaexpo skyc 1 6 1 2 2 0
     setFilter u
     sleep 10s
-    tomaexpo skyu 1 1 1 2 2 0
     tomaexpo skyu 1 2 1 2 2 0
     tomaexpo skyu 1 4 1 2 2 0
     tomaexpo skyu 1 6 1 2 2 0
+    tomaexpo skyu 1 8 1 2 2 0
     setFilter b
     sleep 10s
     tomaexpo skyb 1 1 1 2 2 0

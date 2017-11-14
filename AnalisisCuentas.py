@@ -3,6 +3,7 @@
 import numpy as np
 from scipy.optimize import curve_fit
 import matplotlib.pyplot as plt
+import pprint
 
 # Abro los archivos (tiene en cuenta distintos filtros)
 filtros = ['c', 'u', 'b', 'v', 'r', 'i']
@@ -26,14 +27,13 @@ for filtro in filtros:
         if row[1] > 55000 or row[3] > 15000:
             mask.append(idx)
     datos[filtro] = np.delete(datos[filtro], mask, 0)
-print " "
 
 # Funcion para realizar los ajustes a los datos
-#def func(x,a,b,c):
-#    return a*10e5/(x-c) + b
+def func(x,a,b,c):
+    return a*10e5/(x-c) + b
 # Misma funcino sin el 'c'.. para probar nomas
-def func(x,a,b):
-    return a*10e5/(x) + b
+#def func(x,a,b):
+#    return (a*10e5/x) + b
 
 ajustes = {} # Diccionario con los ajustes de cada filtro
 

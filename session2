@@ -21,10 +21,10 @@ do
     tomaexpo skyv 1 6 1 2 2 0
     setFilter r
     sleep 10s
+    tomaexpo skyr 1 0.4 1 2 2 0
     tomaexpo skyr 1 1 1 2 2 0
     tomaexpo skyr 1 2 1 2 2 0
     tomaexpo skyr 1 4 1 2 2 0
-    tomaexpo skyr 1 6 1 2 2 0
     setFilter i
     sleep 10s
     tomaexpo skyi 1 1 1 2 2 0

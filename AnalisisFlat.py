@@ -10,12 +10,21 @@ import numpy as np
 from astropy.io import fits
 import subprocess
 
-#path_archivos = raw_input('Introducir directorio de los flats: ')
-#archivos = raw_input('Introducir nombre de los flats: ')
-path_archivos = '/home/telescopio/FLATS/2017-1111/' #Poner el dia que se quiere sacar datos
-archivos = 'sky'
+# Directorio actual desde donde se corre el programa
+path_archivos = subprocess.check_output('pwd',shell=True).strip('\n')+'/'
+archivos = 'sky' # Nombre de los flats
+# Directorio donde estan los datos de la estacion meteorologica
 Luz = '/home/telescopio/FLATS/DatosClima/CloudWatcher/'
-filtros = ['v','r','i'] # Letras que identifican a cada filtro
+#Busca todos los archivos en la carpeta que se llaman sky*, los acomododa en una lista
+flats = subprocess.check_output('ls '+path_archivos+archivos+'*',shell=True).replace(path_archivos,'').split('\n')
+filtros = [] # Letras que identifican a cada filtro
+# Busca que filtros se usaron
+for archivo in flats[:-1]:
+    if archivo[3] not in filtros:
+        filtros.append(archivo[3])
+
+print filtros
+
 con_mascara = True # Indicar si se desea usar una mascara circular o no
 # La mascara es para sacar los efectos del vineteo
 
@@ -85,7 +94,7 @@ for filtro in filtros:
             line = line.replace(path_archivos,'') # Nombre del archivo
             c = fits.open(path_archivos+line) # Abre la imagen
             datos = c[0].data # Extrae los valores de cuentas de cada pixel
-            h, w = c.shape[:2] # Tamano de la imagen
+            h, w = datos.shape[:2] # Tamano de la imagen
             mask = createCircularMask(h, w, radius=int((w/2)*0.7)) # Mascara que se le aplica a la imagen
             c.close() # Cierra la imagen
             if con_mascara:
