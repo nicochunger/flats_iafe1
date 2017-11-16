@@ -29,23 +29,24 @@ for filtro in filtros:
     datos[filtro] = np.delete(datos[filtro], mask, 0)
 
 # Funcion para realizar los ajustes a los datos
-#def func(x,a,b,c):
-#    return a*10e5/(x-c) + b
+def func(x,a,b,c):
+    return a*10e5/(x-c) + b
 # Misma funcino sin el 'c'.. para probar nomas
-def func(x,a,b):
-    return (a*10e5/x) + b
+#def func(x,a,b):
+#    return (a*10e5/x) + b
 
 ajustes = {} # Diccionario con los ajustes de cada filtro
 
 # Hago el ajuste y grafico al mismo tiempo
 plt.figure(figsize=(11.6,8.3))
 plt.hold
-xfit=np.linspace(0,15000,6000)
+xfit=np.linspace(0,15000,15000)
 #colores = [(1.0,1.0,1.0), (0.5,0.5,0.5), (0,0,1), (0.5,0.5,0.5), (1,0,0), (0.5,0,0)]
 
 def get_color():
     # Pone los colores para cada filtro
-    # Clear: negro; Ultravioleta: violeta; Blue: azul; Red: rojo; Visible: gris;
+    # Clear: negro; Ultravioleta: violeta; Blue: azul;
+    # Red: rojo; Visible: gris; Infrared: rojo oscuro
     for item in [(0,0,0), (0.5,0,0.5), (0,0,1), (0.5,0.5,0.5), (1,0,0), (0.5,0,0)]:
         yield item
 
@@ -56,17 +57,19 @@ for filtro in filtros:
     mean = datos[filtro][:,1] # Valor medio de cuentas
     std = datos[filtro][:,2] # Desviacion estandar
     luz = datos[filtro][:,3] # Valor de luz
-    popt, pcov = curve_fit(func, luz, mean/t_exp, absolute_sigma=True,sigma=std/t_exp)
+    popt, pcov = curve_fit(func, luz, mean/t_exp, p0=(100,290,0), absolute_sigma=True,sigma=std/t_exp)
     ajustes[filtro] = [popt, pcov]
-    acolor = next(colores)
+    acolor = next(colores) # Color de los datos y ajuste
     plt.errorbar(luz, mean/t_exp, std/t_exp,fmt='.',color=acolor, label="Filtro "+filtro)
-    plt.plot(xfit, func(xfit, *ajustes[filtro][0]), color=acolor)
+    plt.plot(xfit[np.ceil(popt[2]):], func(xfit[np.ceil(popt[2]):], *ajustes[filtro][0]), color=acolor)
 
-plt.ylim((0,60000))
+pprint.pprint(ajustes)
+
+plt.ylim((0,70000))
 plt.xlim((0,15000))
-plt.title(r'$f(x)=\frac{a10^{5}}{x-c} +b$',fontsize=18)
-plt.xlabel(r'Valor de luz dado por el AAG')
-plt.ylabel('Cuentas / Segundo')
-plt.legend()
+plt.title(r'$f(x)=\frac{a10^{5}}{x-c} +b$',fontsize=22)
+plt.xlabel('Valor de luz dado por el AAG',fontsize=18)
+plt.ylabel('Cuentas / Segundo',fontsize=18)
+plt.legend(prop={'size': 18})
 plt.grid(b='on',color='grey')
 plt.show()
