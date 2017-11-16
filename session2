@@ -1,7 +1,7 @@
 #!/bin/sh
 
 horaActual1=$(date +%H%M) #Define hora actual
-horacomienzo=2018 #Hora a la que empieza a tomar fotos
+horacomienzo=2015 #Hora a la que empieza a tomar fotos
 horalim1=2050 #Hora a la que anochece
 while [ $horaActual1 -le $horacomienzo ]
 do

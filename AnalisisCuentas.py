@@ -29,11 +29,11 @@ for filtro in filtros:
     datos[filtro] = np.delete(datos[filtro], mask, 0)
 
 # Funcion para realizar los ajustes a los datos
-def func(x,a,b,c):
-    return a*10e5/(x-c) + b
+#def func(x,a,b,c):
+#    return a*10e5/(x-c) + b
 # Misma funcino sin el 'c'.. para probar nomas
-#def func(x,a,b):
-#    return (a*10e5/x) + b
+def func(x,a,b):
+    return (a*10e5/x) + b
 
 ajustes = {} # Diccionario con los ajustes de cada filtro
 
@@ -44,6 +44,8 @@ xfit=np.linspace(0,15000,6000)
 #colores = [(1.0,1.0,1.0), (0.5,0.5,0.5), (0,0,1), (0.5,0.5,0.5), (1,0,0), (0.5,0,0)]
 
 def get_color():
+    # Pone los colores para cada filtro
+    # Clear: negro; Ultravioleta: violeta; Blue: azul; Red: rojo; Visible: gris;
     for item in [(0,0,0), (0.5,0,0.5), (0,0,1), (0.5,0.5,0.5), (1,0,0), (0.5,0,0)]:
         yield item
 
