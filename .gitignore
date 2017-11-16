@@ -55,6 +55,8 @@ dkms.conf
 
 # Varios
 *.pdf
+*.fits
+*.csv
 
 *~
 *[#]*[#]

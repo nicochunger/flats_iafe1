@@ -47,10 +47,8 @@ forma f=a/(x-b)+c. La variable "valores" es un diccionario entre los numeros
 #           '21':(5.7519,-209,64.08)}
 
 # Ajustes para Yessy (IAFE1)
-valores = {'11':(2.904,-245,45.08), '12':(2.03,28.48,62.12), '13':(6.33,445,55.72),
-           '14':(9.08,-285,-18.34), '15':(2.98,-180,-56.19), '25':(5.6524,-440,-17.02),
-           '24':(12.46,3980,-86.63), '23':(7.1937,202,44.17), '22':(5.8980,-60,54.75),
-           '21':(5.7519,-209,64.08)}
+valores = {'2c':(5.6524,-440,-17.02), '2u':(12.46,3980,-86.63), '2b':(7.1937,202,44.17),
+           '2v':(5.8980,-60,54.75), '2r':(5.7519,-209,64.08), '2i':(5.7519,-209,64.08)}
 
 #Esto se encarga de agarrar los valores de filtro y bineo que se introducen al llamar al programa Leerluz.py
 filtro, bineo = sys.argv[1:]
