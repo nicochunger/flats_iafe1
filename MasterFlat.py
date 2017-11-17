@@ -9,10 +9,10 @@ import numpy as np
 from pyraf import iraf
 from astropy.io import fits
 
-s_bias='b' #Subfijo que tienen los bias
+s_bias='bias' #Subfijo que tienen los bias
 s_flat='sky'  #Subfijo que tienen los bias
 #dir_salida='/home/belen/Escritorio/'   #En que carpeta se guardan los master bias y flats
-filtros=['1','2','3','5'] #Filtros
+filtros=['c','u','b','v','r','i'] #Filtros
 #dir_entrada='/home/belen/Escritorio/Datos/' #En que carpeta estan los bias y sky para analizar
 
 #Eso da el directorio desde donde se llama al programa

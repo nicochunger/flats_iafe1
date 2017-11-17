@@ -7,16 +7,15 @@ Created on Sat May 16 14:22:33 2015
 @author: Belen (belenareal@gmail.com) y Joel (joel.acosta@outlook.com)
 @adaptacion para IAFE1: Nico (nicounger94@gmail.com)
 """
-####################################################################
-####								####
-####								####
-####		LECTOR DE LUZ PARA TELESCOPIO IAFE1 (Yessy)		####
-####								####
-####		Estacion meteorologica CloudWatcher		####
-####								####
-####								####
-####								####
-####################################################################
+################################################################################
+####								                                        ####
+####								                                        ####
+####	       	LECTOR DE LUZ PARA TELESCOPIO IAFE1 (Yessy)	                ####
+####								                                        ####
+####		        Estacion meteorologica CloudWatcher		                ####
+####								                                        ####
+####								                                        ####
+################################################################################
 """ El progrma requiere que se defina un alias para poder introducir argumentos:
 ln -s Leerluz.py Leerluz
 Al hacer esto, se puede llamar desde una consola como ./Leerluz.py n b donde n
