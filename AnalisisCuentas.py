@@ -61,7 +61,7 @@ for filtro in filtros:
     ajustes[filtro] = [popt, pcov]
     acolor = next(colores) # Color de los datos y ajuste
     plt.errorbar(luz, mean/t_exp, std/t_exp,fmt='.',color=acolor, label="Filtro "+filtro)
-    plt.plot(xfit[np.ceil(popt[2]):], func(xfit[np.ceil(popt[2]):], *ajustes[filtro][0]), color=acolor)
+    plt.plot(xfit[int(np.ceil(popt[2])):], func(xfit[int(np.ceil(popt[2])):], *ajustes[filtro][0]), color=acolor)
 
 pprint.pprint(ajustes)
 

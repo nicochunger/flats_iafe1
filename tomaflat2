@@ -18,7 +18,7 @@ while [ $m -eq 0 ] ; do
 			sleep 5s
 
 
-		elif [ ${a%%.*} -eq -1 ] ; then	
+		elif [ ${a%%.*} -eq -1 ] ; then
             #Devuelve a=-1 si estoy fuera del rango para tomar flats (poca luz)
 			echo 'Hay poca luz, tarde para flats'
 			n=1
@@ -41,12 +41,14 @@ while [ $m -eq 0 ] ; do
 	#Cambia de filtro
 	if [ "$filtro" -eq "c" ] ; then
 		filtro=b
-	#elif [ "$filtro" -eq "b" ] ; then
-		#filtro=u
-	#elif [ "$filtro" -eq "u" ] ; then
-		#filtro=3
-	#elif [ $filtro -eq 3 ] ; then
-		#filtro=5
+	elif [ "$filtro" -eq "b" ] ; then
+		filtro=u
+	elif [ "$filtro" -eq "u" ] ; then
+		filtro=v
+	elif [ "$filtro" -eq "v" ] ; then
+		filtro=r
+    elif [ "$filtro" -eq "r" ] ; then
+        filtro=i
 
 	fi
 done
