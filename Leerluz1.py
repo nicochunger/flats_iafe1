@@ -17,7 +17,7 @@ Created on Sat May 16 14:22:33 2015
 ####								                                        ####
 ################################################################################
 """ El progrma requiere que se defina un alias para poder introducir argumentos:
-ln -s Leerluz.py Leerluz
+ln -s Leerluz1.py Leerluz1
 Al hacer esto, se puede llamar desde una consola como ./Leerluz.py n b donde n
 es el numero de filtro con el que se va a medir y b es el bineo, el programa
 entonces usa la curva de luz ajustada para ese filtroy bineo. """
@@ -46,8 +46,9 @@ forma f=a/(x-b)+c. La variable "valores" es un diccionario entre los numeros
 #           '21':(5.7519,-209,64.08)}
 
 # Ajustes para Yessy (IAFE1)
-valores = {'2c':(5.6524,-440,-17.02), '2u':(12.46,3980,-86.63), '2b':(7.1937,202,44.17),
-           '2v':(5.8980,-60,54.75), '2r':(5.7519,-209,64.08), '2i':(5.7519,-209,64.08)}
+valores = {'2clear':(196.440, -8506.497, 290.096), '2u':(3.886, 184.786, 1.265),
+           '2b':(27.424, -645.459, -11.508), '2v':(30.801, -793.607, 82.935),
+           '2r':(39.896, -812.121, 172.621), '2i':(30.664, -838.903, 60.059)}
 
 #Esto se encarga de agarrar los valores de filtro y bineo que se introducen al llamar al programa Leerluz.py
 filtro, bineo = sys.argv[1:]

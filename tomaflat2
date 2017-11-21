@@ -1,6 +1,6 @@
 #!/bin/sh
 
-filtro=c
+filtro=clear
 bin=2
 m=0
 
@@ -9,7 +9,7 @@ while [ $m -eq 0 ] ; do
 	sleep 10s
 	n=0
 	while [ $n -eq 0 ] ; do
-		a=`Leerluz $filtro $bin`
+		a=`ssh mate Leerluz1 $filtro $bin`
 
 		if [ ${a%%.*} -eq 0 ] ; then
             #Leerluz devuelve a = 0 si estoy fuera del rango de luz para tomar
@@ -39,7 +39,7 @@ while [ $m -eq 0 ] ; do
 	done
 
 	#Cambia de filtro
-	if [ "$filtro" -eq "c" ] ; then
+	if [ "$filtro" -eq "clear" ] ; then
 		filtro=b
 	elif [ "$filtro" -eq "b" ] ; then
 		filtro=u
