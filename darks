@@ -1,0 +1,6 @@
+texp=5
+while [ $texp -le 121 ]
+do
+    tomaexpo dark 1 $texp 0 2 2 0
+    ((texp = texp + 5))
+done

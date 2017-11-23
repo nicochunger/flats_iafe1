@@ -17,7 +17,7 @@ Created on Sat May 16 14:22:33 2015
 ####								                                        ####
 ################################################################################
 """ El progrma requiere que se defina un alias para poder introducir argumentos:
-ln -s Leerluz1.py Leerluz1
+ln -s Leerluz_iafe1.py Leerluz_iafe1
 Al hacer esto, se puede llamar desde una consola como ./Leerluz.py n b donde n
 es el numero de filtro con el que se va a medir y b es el bineo, el programa
 entonces usa la curva de luz ajustada para ese filtroy bineo. """

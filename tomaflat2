@@ -1,15 +1,15 @@
 #!/bin/sh
 
-filtro=clear
+filtro="u"
 bin=2
 m=0
+setFilter $filtro
+sleep 10s
 
 while [ $m -eq 0 ] ; do
-	setFilter $filtro
-	sleep 10s
 	n=0
 	while [ $n -eq 0 ] ; do
-		a=`ssh mate Leerluz1 $filtro $bin`
+		a=`ssh mate Leerluz_iafe1.py $filtro $bin`
 
 		if [ ${a%%.*} -eq 0 ] ; then
             #Leerluz devuelve a = 0 si estoy fuera del rango de luz para tomar
@@ -37,22 +37,8 @@ while [ $m -eq 0 ] ; do
 			m=1
 		fi
 	done
-
-	#Cambia de filtro
-	if [ "$filtro" -eq "clear" ] ; then
-		filtro=b
-	elif [ "$filtro" -eq "b" ] ; then
-		filtro=u
-	elif [ "$filtro" -eq "u" ] ; then
-		filtro=v
-	elif [ "$filtro" -eq "v" ] ; then
-		filtro=r
-    elif [ "$filtro" -eq "r" ] ; then
-        filtro=i
-
-	fi
 done
 
 tomaexpo bias 20 0 0.0025 2 2 0
 
-#python /home/telescopio/DATOS/AnalisisPython/MasterFlat.py
+python /home/telescopio/FLATS/AnalisisPython/MasterFlat.py

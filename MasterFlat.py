@@ -93,6 +93,6 @@ def master_flat(dir_entrada,dir_salida,filtro,check_bias,bias):
         return 'No se encuentran flats suficientes para el filtro '+filtro+' en '+dir_entrada
 
 #Crea el master bias, y los master flats
-check_bias,bias=master_bias(dir_entrada,dir_salida)
-#for i in filtros:
-#    master_flat(dir_entrada,dir_salida,i,check_bias,bias)
+check_bias,bias = master_bias(dir_entrada,dir_salida)
+for i in filtros:
+    master_flat(dir_entrada,dir_salida,i,check_bias,bias)
