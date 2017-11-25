@@ -68,13 +68,14 @@ def master_flat(dir_entrada,dir_salida,filtro,check_bias,bias):
         #Busca la fecha
         bolean=True
         #Si todo esto funciono sigue
+        print archivos+'\n'
     except:
         bolean=False
         #Si no funciono nada de esto sale
     if bolean==True:
         #cambia a la carpeta para analizar
         iraf.cd(dir_entrada)
-        iraf.imcombine(input=archivos,output=dir_salida+'temp',combine='median')
+        iraf.imcombine(input=archivos,output=dir_salida+'temp',combine='median',project='yes')
         #Combina imagenes de flats
         reduc_bias(dir_salida+'temp.fits',bias,check_bias,dir_salida+'temp2')
         #Lo reduce por bias
@@ -94,5 +95,5 @@ def master_flat(dir_entrada,dir_salida,filtro,check_bias,bias):
 
 #Crea el master bias, y los master flats
 check_bias,bias = master_bias(dir_entrada,dir_salida)
-for i in filtros:
-    master_flat(dir_entrada,dir_salida,i,check_bias,bias)
+print(check_bias)
+master_flat(dir_entrada,dir_salida,"c",check_bias,bias)
