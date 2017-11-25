@@ -32,6 +32,5 @@ for line in darks:
         seg = linea[3].strip('s') # Tiempo de exposicion
         std = str(np.std(datos)) # Desviacion estandar de las cuentas de todos los pixeles
         mean = str(np.mean(datos)) # Valor medio de las cuentas
-        datoluz = luz(hora,dia) # Valor de luz en ese momento
         # Guarda los resultados
         anotar(path_archivos+'resultados_'+archivos,line+','+seg+','+mean+','+std,'a')
