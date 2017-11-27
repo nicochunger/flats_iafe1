@@ -25,7 +25,7 @@ for archivo in flats[:-1]:
 
 print filtros
 
-con_mascara = True # Indicar si se desea usar una mascara circular o no
+con_mascara = False # Indicar si se desea usar una mascara circular o no
 # La mascara es para sacar los efectos del vineteo
 
 def anotar(archivo,texto,f):
