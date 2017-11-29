@@ -1,6 +1,6 @@
 #!/bin/sh
 
-filtro="b"
+filtro="i"
 bin=2
 m=0
 setFilter $filtro

@@ -9,15 +9,24 @@ import numpy as np
 from pyraf import iraf
 from astropy.io import fits
 
+iraf.noao.imred()
+iraf.noao.imred.ccdred()
+
 s_bias='bias' #Subfijo que tienen los bias
 s_flat='sky'  #Subfijo que tienen los bias
 #dir_salida='/home/belen/Escritorio/'   #En que carpeta se guardan los master bias y flats
-filtros=['c','u','b','v','r','i'] #Filtros
 #dir_entrada='/home/belen/Escritorio/Datos/' #En que carpeta estan los bias y sky para analizar
 
 #Eso da el directorio desde donde se llama al programa
 dir_entrada = subprocess.check_output('pwd',shell=True).strip('\n')+'/'
 dir_salida = dir_entrada
+
+flats = subprocess.check_output('ls '+dir_entrada+s_flat+'*',shell=True).replace(dir_entrada,'').split('\n')
+filtros = [] # Letras que identifican a cada filtro
+# Busca que filtros se usaron
+for archivo in flats[:-1]:
+    if archivo[3] not in filtros:
+        filtros.append(archivo[3])
 
 def master_bias(dir_entrada,dir_salida):
     ''' Crea un archivo Master_Bias que es un promedio de todos los bias.
@@ -75,7 +84,7 @@ def master_flat(dir_entrada,dir_salida,filtro,check_bias,bias):
     if bolean==True:
         #cambia a la carpeta para analizar
         iraf.cd(dir_entrada)
-        iraf.imcombine(input=archivos,output=dir_salida+'temp',combine='median',project='yes')
+        iraf.noao.imred.ccdred.flatcombine(input=archivos,output=dir_salida+'temp',combine='median')
         #Combina imagenes de flats
         reduc_bias(dir_salida+'temp.fits',bias,check_bias,dir_salida+'temp2')
         #Lo reduce por bias
@@ -95,5 +104,5 @@ def master_flat(dir_entrada,dir_salida,filtro,check_bias,bias):
 
 #Crea el master bias, y los master flats
 check_bias,bias = master_bias(dir_entrada,dir_salida)
-print(check_bias)
-master_flat(dir_entrada,dir_salida,"c",check_bias,bias)
+for filtro in filtros:
+    master_flat(dir_entrada,dir_salida,filtro,check_bias,bias)
