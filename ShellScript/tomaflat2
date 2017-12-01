@@ -1,13 +1,13 @@
 #!/bin/sh
 
-filtro="i"
+filtro="v"
 bin=2
 m=0
 setFilter $filtro
 sleep 10s
 
 horaActual1=$(date +%H%M) #Define hora actual
-horacomienzo=2010 #Hora a la que empieza a tomar fotos
+horacomienzo=2015 #Hora a la que empieza a tomar fotos
 while [ $horaActual1 -le $horacomienzo ]
 do
     echo "Muy temprano todavia! Espero 30s"
@@ -54,4 +54,6 @@ done
 
 tomaexpo bias 20 0 0.0025 2 2 0
 
-#python /home/telescopio/FLATS/AnalisisPython/MasterFlat.py
+ccdOff
+
+python /home/telescopio/FLATS/AnalisisPython/MasterFlat.py

@@ -57,6 +57,7 @@ dkms.conf
 *.pdf
 *.fits
 *.csv
+ds9
 
 *~
 *[#]*[#]

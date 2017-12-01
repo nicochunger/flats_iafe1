@@ -8,7 +8,7 @@ import pprint
 # Abro los archivos (tiene en cuenta distintos filtros)
 filtros = ['c', 'u', 'b', 'v', 'r', 'i']
 datos = {} # Diccionario que va a tener todos los datos para todos los filtros
-path = 'Resultados/resultados2_sky'
+path = '/home/nunger/flats_iafe1/Resultados/resultados2_sky'
 for filtro in filtros:
     datos[filtro] = np.loadtxt(path+filtro,delimiter=',',usecols=(3,4,5,6),skiprows=1)
 
