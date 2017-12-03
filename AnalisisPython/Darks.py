@@ -1,3 +1,6 @@
+''' Crea un grafico con el valor medio de cuentas de una imagen Dark en funcion
+ del tiempo de exposicion'''
+
 import numpy as np
 import matplotlib.pyplot as plt
 

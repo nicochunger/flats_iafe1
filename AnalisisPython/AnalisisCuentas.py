@@ -31,17 +31,13 @@ for filtro in filtros:
 # Funcion para realizar los ajustes a los datos
 def func(x,a,b,c):
     return a*10e5/(x-c) + b
-# Misma funcino sin el 'c'.. para probar nomas
-#def func(x,a,b):
-#    return (a*10e5/x) + b
 
 ajustes = {} # Diccionario con los ajustes de cada filtro
 
 # Hago el ajuste y grafico al mismo tiempo
-plt.figure(figsize=(11.6,8.3))
+plt.figure(figsize=(8,6))
 plt.hold
 xfit=np.linspace(0,15000,15000)
-#colores = [(1.0,1.0,1.0), (0.5,0.5,0.5), (0,0,1), (0.5,0.5,0.5), (1,0,0), (0.5,0,0)]
 
 def get_color():
     # Pone los colores para cada filtro
@@ -67,9 +63,8 @@ pprint.pprint(ajustes)
 
 plt.ylim((0,70000))
 plt.xlim((0,15000))
-plt.title(r'$f(x)=\frac{a10^{5}}{x-c} +b$',fontsize=22)
-plt.xlabel('Valor de luz dado por el AAG',fontsize=18)
-plt.ylabel('Cuentas / Segundo',fontsize=18)
+plt.xlabel('Valor de luz dado por el AAG',fontsize=20)
+plt.ylabel('Cuentas / Segundo',fontsize=20)
 plt.legend(prop={'size': 18})
 plt.grid(b='on',color='grey')
 plt.show()

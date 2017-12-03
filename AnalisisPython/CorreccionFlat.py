@@ -8,6 +8,7 @@ Creado por: Nico (nicounger94@gmail.com)
 import numpy as np
 import subprocess
 from astropy.io import fits
+import sys
 
 s_imagen = 'prueba' # Subfijo de la/s imagenes a corregir
 
@@ -16,8 +17,11 @@ dir_entrada = subprocess.check_output('pwd', shell=True).strip('\n')+'/'
 dir_salida = dir_entrada
 
 imagen = subprocess.check_output('ls '+dir_entrada+s_imagen+'*', shell=True).replace(dir_entrada,'').strip('\n')
-masterbias = subprocess.check_output('ls '+dir_entrada+'MasterBias*', shell=True).replace(dir_entrada,'').strip('\n')
-masterflat = subprocess.check_output('ls '+dir_entrada+'MasterFlat*', shell=True).replace(dir_entrada,'').strip('\n')
+try:
+    masterbias = subprocess.check_output('ls '+dir_entrada+'MasterBias*', shell=True).replace(dir_entrada,'').strip('\n')
+    masterflat = subprocess.check_output('ls '+dir_entrada+'MasterFlat*', shell=True).replace(dir_entrada,'').strip('\n')
+except:
+    sys.exit('No hay Flats y/o Bias presentes para usar como correccion.')
 
 f = fits.open(masterflat)
 flat = f[0].data
