@@ -33,7 +33,7 @@ except:
     # Si no existen imagenes con ese nombre corta todo y tira un error
     sys.exit('No hay imagenes flats por analizar en '+dir_entrada)
 
-def imcombine(imagenes, ifbias):
+def imcombine(imagenes, ifflat):
     ''' Funcion que combina muchas imagenes tomando las mediana de todas
     pixel a pixel. Si se trata de flats entonces ifbias=True y
     ademas las reduce por bias y las divide por el valor medio.
@@ -46,7 +46,7 @@ def imcombine(imagenes, ifbias):
     for img in imagenes:
         c = fits.open(img) # Abro la imagen
         datos = c[0].data # Extraigo los datos en forma de numpy array
-        if ifbias:
+        if ifflat:
             reduc_bias(datos,bias,check_bias) # Resto el Bias
             datos = datos/np.mean(datos) # Normalizo la imagen con el promedio
         img2d.append(datos) # Agrego los datos a mi lista de bias2d
