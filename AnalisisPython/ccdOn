@@ -1,0 +1,44 @@
+#!/usr/bin/env python
+import serial
+import sys
+import os
+import time
+
+cachedStatusFile = '/tmp/cachedStatus'
+
+lib_path = os.path.abspath('/home/telescopio/astrocli/other')
+sys.path.append(lib_path)
+import onoffPort
+import activityLog
+
+activityLog.log('Turning CCD ON')
+
+port = onoffPort.port()
+#print port
+ser = serial.Serial(port, 9600, timeout=1)  # open first serial port
+
+ser = serial.Serial(port,
+                     baudrate=9600,
+                     bytesize=serial.EIGHTBITS,
+                     parity=serial.PARITY_NONE,
+                     stopbits=serial.STOPBITS_ONE,
+                     timeout=1,
+                     xonxoff=0,
+                     rtscts=0
+                     )
+# Toggle DTR to reset Arduino
+ser.setDTR(False)
+time.sleep(1)
+# toss any data already received, see
+# http://pyserial.sourceforge.net/pyserial_api.html#serial.Serial.flushInput
+ser.flushInput()
+ser.setDTR(True)
+
+ser.write('C')
+time.sleep(5)
+line = ser.readline()
+print line
+ser.close()             # close port
+
+if os.path.isfile(cachedStatusFile) :
+	os.remove(cachedStatusFile)
