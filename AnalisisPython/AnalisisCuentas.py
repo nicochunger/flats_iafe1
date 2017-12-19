@@ -56,7 +56,7 @@ for filtro in filtros:
     popt, pcov = curve_fit(func, luz, mean/t_exp, p0=(100,290,0), absolute_sigma=True,sigma=std/t_exp)
     ajustes[filtro] = [popt, pcov]
     acolor = next(colores) # Color de los datos y ajuste
-    plt.errorbar(luz, mean/t_exp, std/t_exp,fmt='.',color=acolor, label="Filtro "+filtro)
+    plt.errorbar(luz, mean/t_exp, std/t_exp,fmt='.',color=acolor, label="Filtro "+filtro.upper())
     plt.plot(xfit[int(np.abs(np.ceil(popt[2]))):], func(xfit[int(np.abs(np.ceil(popt[2]))):], *ajustes[filtro][0]), color=acolor)
 
 pprint.pprint(ajustes)
